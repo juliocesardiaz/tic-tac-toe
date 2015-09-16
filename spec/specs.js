@@ -173,4 +173,16 @@ describe('Board', function() {
       testBoard.setSpace(testSpace3);
       expect(testBoard.checkIfThreeInARow()).to.equal(true);
    });  
+   
+   it("checks if the Board is full", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(1,3, testPlayer);
+      var testSpace2 = new Space(2,2, testPlayer);
+      var testSpace3 = new Space(3,1, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfFull()).to.equal(false);
+   }); 
 });

@@ -75,7 +75,7 @@ Board.prototype.find = function(x_coord, y_coord){
 };
 
 Board.prototype.isEmpty = function(x, y){
-    var spaceToCheck = this.find(x, y);
+    var spaceToCheck = this.spaces[this.find(x, y)];
     if(spaceToCheck.marked_by == "empty"){
         return true;
     } else {
@@ -150,4 +150,18 @@ Board.prototype.checkIfDiagonalWin = function() {
     } else{
         return false;
     }
+};
+
+Board.prototype.checkIfFull = function(){
+    debugger;
+    var isSpotFull = true;
+    for(var x = 1; x <= 3; x++){
+        for(var y = 1; y <= 3; y++){
+            if(this.isEmpty(x, y) == true){
+                isSpotFull = false;
+                break;
+            }
+        }   
+    }  
+    return isSpotFull;
 };
