@@ -57,7 +57,7 @@ describe('Board', function() {
       expect(testBoard.spaces[0]).to.eql(testSpace);
    });
    
-   it("checks if there is a vertical win", function() {
+   it("checks if there is a vertical win in first column", function() {
       var testPlayer = new Player("X");
       var testSpace = new Space(1,1, testPlayer);
       var testSpace2 = new Space(1,2, testPlayer);
@@ -66,6 +66,91 @@ describe('Board', function() {
       testBoard.setSpace(testSpace);
       testBoard.setSpace(testSpace2);
       testBoard.setSpace(testSpace3);
-      expect(testBoard.checkIfVerticalWin(testSpace)).to.equal(true);
+      expect(testBoard.checkIfVerticalWin()).to.equal(true);
    });
+   
+   it("checks if there is a vertical win in second column", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(2,1, testPlayer);
+      var testSpace2 = new Space(2,2, testPlayer);
+      var testSpace3 = new Space(2,3, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfVerticalWin()).to.equal(true);
+   });
+   
+   it("checks if there is a vertical win in third column", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(3,1, testPlayer);
+      var testSpace2 = new Space(3,2, testPlayer);
+      var testSpace3 = new Space(3,3, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfVerticalWin()).to.equal(true);
+   });
+   
+   it("checks if there is a Horizontal win in first row", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(1,1, testPlayer);
+      var testSpace2 = new Space(2,1, testPlayer);
+      var testSpace3 = new Space(3,1, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfHorizontalWin()).to.equal(true);
+   });
+   
+   it("checks if there is a Horizontal win in second row", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(1,2, testPlayer);
+      var testSpace2 = new Space(2,2, testPlayer);
+      var testSpace3 = new Space(3,2, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfHorizontalWin()).to.equal(true);
+   });
+   
+   it("checks if there is a Horizontal win in third row", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(1,3, testPlayer);
+      var testSpace2 = new Space(2,3, testPlayer);
+      var testSpace3 = new Space(3,3, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfHorizontalWin()).to.equal(true);
+   });
+   
+   it("checks if there is a Diagonal win left-right", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(1,1, testPlayer);
+      var testSpace2 = new Space(2,2, testPlayer);
+      var testSpace3 = new Space(3,3, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfDiagonalWin()).to.equal(true);
+      
+   });
+      
+    it("checks if there is a Diagonal win right-left", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(1,3, testPlayer);
+      var testSpace2 = new Space(2,2, testPlayer);
+      var testSpace3 = new Space(3,1, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfDiagonalWin()).to.equal(true);
+   });   
 });

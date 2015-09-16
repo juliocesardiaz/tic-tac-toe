@@ -18,6 +18,7 @@ Space.prototype.marks_the_spot = function(){
 };
 
 function Board(spaces){
+    // debugger;
     var spacesBoard = [];
     for(var  i = 1; i <= 3; i++){
         for(var j = 1; j<= 3; j++){
@@ -29,42 +30,56 @@ function Board(spaces){
 };
 
 Board.prototype.find = function(x_coord, y_coord){
+    // debugger;
     var i = 0;
     switch(x_coord) {
       case 1: 
         switch(y_coord){
             case 1:
                 i = 0;
+                break;
             case 2:
                 i = 1;
+                break;
             case 3:
                 i = 2;
+                break;
         }
+        break;
       case 2:
         switch(y_coord){
             case 1:
                 i = 3;
+                break;
             case 2:
                 i = 4;
+                break;
             case 3:
                 i = 5;
+                break;
         }
+        break;
       case 3:
         switch(y_coord){
             case 1:
                 i = 6;
+                break;
             case 2:
                 i = 7;
+                break;
             case 3:
                 i = 8;
+                break;
         }
+        break;
     }
     return i;
 };
 Board.prototype.setSpace = function(space){
+    // debugger;
   var x =  space.x_coord;
-  var y = space.ycoord;
-  var mark = space.marks_the_spot; 
+  var y = space.y_coord;
+  var mark = space.marked_by; 
   var i = this.find(x, y);
   this.spaces[i] = space;
 };
@@ -73,20 +88,19 @@ Board.prototype.checkIfThreeInARow = function(space) {
     
 };
 
-Board.prototype.checkIfVerticalWin = function(space) {
-    debugger;
-    var x_coord = space.x_coord;
-    var y_coord = space.y_coord;
-    var mark = space.marked_by;
+Board.prototype.checkIfVerticalWin = function() {
+    // debugger;
     var times = 0;
-    for(var j = 2; j <= 3; j++){
-        var tempSpace = this.spaces[this.find(x_coord, j)];
-        var tempSpace2 = this.spaces[this.find(x_coord, (j - 1) )];
-        if((tempSpace == tempSpace2) && ((mark.marks_the_spot == "X") || (mark.marks_the_spot == "Y"))) {
-            time += 1;
+    for(var x = 1; x <=3; x++){
+        for(var j = 2; j <= 3; j++){
+            var tempSpace = this.spaces[this.find(x, j)];
+            var tempSpace2 = this.spaces[this.find(x, (j - 1) )];
+            if((tempSpace.marked_by == tempSpace2.marked_by) && (tempSpace.marked_by != "empty")) {
+                times += 1;
+            }
         }
     }
-    if(times == 3){
+    if(times == 2){
         return true;
     } else{
         return false;
@@ -95,7 +109,21 @@ Board.prototype.checkIfVerticalWin = function(space) {
 };
 
 Board.prototype.checkIfHorizontalWin = function(space) {
-    
+    var times = 0;
+    for(var y = 1; y <=3; y++){
+        for(var x = 2; x <= 3; x++){
+            var tempSpace = this.spaces[this.find(x, y)];
+            var tempSpace2 = this.spaces[this.find((x - 1), y)];
+            if((tempSpace.marked_by == tempSpace2.marked_by) && (tempSpace.marked_by != "empty")) {
+                times += 1;
+            }
+        }
+    }
+    if(times == 2){
+        return true;
+    } else{
+        return false;
+    }
 };
 
 Board.prototype.checkIfDiagonalWin = function(space) {
