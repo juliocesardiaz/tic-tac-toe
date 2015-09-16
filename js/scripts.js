@@ -73,6 +73,16 @@ Board.prototype.find = function(x_coord, y_coord){
     }
     return i;
 };
+
+Board.prototype.isEmpty = function(x, y){
+    var spaceToCheck = this.find(x, y);
+    if(spaceToCheck.marked_by == "empty"){
+        return true;
+    } else {
+        return false;
+    }
+};
+
 Board.prototype.setSpace = function(space){
   var x =  space.x_coord;
   var y = space.y_coord;

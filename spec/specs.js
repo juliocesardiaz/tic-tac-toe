@@ -57,6 +57,14 @@ describe('Board', function() {
       expect(testBoard.spaces[0]).to.eql(testSpace);
    });
    
+   it("checks if space is empty", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(1,1, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      expect(testBoard.isEmpty(testSpace.x_coord, testSpace.y_coord)).to.equal(false);
+   });
+   
    it("checks if there is a vertical win in first column", function() {
       var testPlayer = new Player("X");
       var testSpace = new Space(1,1, testPlayer);
