@@ -18,7 +18,6 @@ Space.prototype.marks_the_spot = function(){
 };
 
 function Board(spaces){
-    // debugger;
     var spacesBoard = [];
     for(var  i = 1; i <= 3; i++){
         for(var j = 1; j<= 3; j++){
@@ -30,7 +29,6 @@ function Board(spaces){
 };
 
 Board.prototype.find = function(x_coord, y_coord){
-    // debugger;
     var i = 0;
     switch(x_coord) {
       case 1: 
@@ -76,7 +74,6 @@ Board.prototype.find = function(x_coord, y_coord){
     return i;
 };
 Board.prototype.setSpace = function(space){
-    // debugger;
   var x =  space.x_coord;
   var y = space.y_coord;
   var mark = space.marked_by; 
@@ -84,12 +81,15 @@ Board.prototype.setSpace = function(space){
   this.spaces[i] = space;
 };
 
-Board.prototype.checkIfThreeInARow = function(space) {
-    
+Board.prototype.checkIfThreeInARow = function() {
+    if(this.checkIfVerticalWin() || this.checkIfHorizontalWin() || this.checkIfDiagonalWin()){
+        return true;
+    } else {
+        return false;
+    }
 };
 
 Board.prototype.checkIfVerticalWin = function() {
-    // debugger;
     var times = 0;
     for(var x = 1; x <=3; x++){
         for(var j = 2; j <= 3; j++){
@@ -108,7 +108,7 @@ Board.prototype.checkIfVerticalWin = function() {
     
 };
 
-Board.prototype.checkIfHorizontalWin = function(space) {
+Board.prototype.checkIfHorizontalWin = function() {
     var times = 0;
     for(var y = 1; y <=3; y++){
         for(var x = 2; x <= 3; x++){
@@ -126,6 +126,18 @@ Board.prototype.checkIfHorizontalWin = function(space) {
     }
 };
 
-Board.prototype.checkIfDiagonalWin = function(space) {
+Board.prototype.checkIfDiagonalWin = function() {
+    var middle = this.spaces[this.find(2, 2)];
+    var leftTopCorner = this.spaces[this.find(1, 3)];
+    var rightBottomCorner = this.spaces[this.find(3, 1)];
+    var leftBottomCorner = this.spaces[this.find(1, 1)];
+    var rightTopCorner = this.spaces[this.find(3, 3)];
+    var leftRight = ((leftTopCorner.marked_by == middle.marked_by) && (rightBottomCorner.marked_by == middle.marked_by));
+    var rightLeft = ((leftBottomCorner.marked_by == middle.marked_by) && (rightTopCorner.marked_by == middle.marked_by));
     
+    if(leftRight || rightLeft) {
+        return true;
+    } else{
+        return false;
+    }
 };
