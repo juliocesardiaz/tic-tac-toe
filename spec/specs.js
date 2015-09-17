@@ -101,6 +101,19 @@ describe('Board', function() {
       expect(testBoard.checkIfVerticalWin()).to.equal(true);
    });
    
+   it("********** checks if there is a vertical win in third column that shouldn't exist", function() {
+      var testPlayer = new Player("X");
+      var testPlayer2 = new Player("O");
+      var testSpace = new Space(3,1, testPlayer);
+      var testSpace2 = new Space(3,2, testPlayer2);
+      var testSpace3 = new Space(3,3, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfVerticalWin()).to.equal(false);
+   });
+   
    it("checks if there is a Horizontal win in first row", function() {
       var testPlayer = new Player("X");
       var testSpace = new Space(1,1, testPlayer);
@@ -135,6 +148,19 @@ describe('Board', function() {
       testBoard.setSpace(testSpace2);
       testBoard.setSpace(testSpace3);
       expect(testBoard.checkIfHorizontalWin()).to.equal(true);
+   });
+   
+   it("********** checks if there is a Horizontal win in third row that shouldn't exist", function() {
+      var testPlayer = new Player("X");
+      var testPlayer2 = new Player("O");
+      var testSpace = new Space(1,3, testPlayer);
+      var testSpace2 = new Space(2,3, testPlayer);
+      var testSpace3 = new Space(3,3, testPlayer2);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      expect(testBoard.checkIfHorizontalWin()).to.equal(false);
    });
    
    it("checks if there is a Diagonal win left-right", function() {
@@ -174,7 +200,7 @@ describe('Board', function() {
       expect(testBoard.checkIfThreeInARow()).to.equal(true);
    });  
    
-   it("checks if the Board is full", function() {
+   it("checks if the Board has empty spots", function() {
       var testPlayer = new Player("X");
       var testSpace = new Space(1,3, testPlayer);
       var testSpace2 = new Space(2,2, testPlayer);
@@ -185,4 +211,54 @@ describe('Board', function() {
       testBoard.setSpace(testSpace3);
       expect(testBoard.checkIfFull()).to.equal(false);
    }); 
+   
+   it("checks if the Board is full", function() {
+      var testPlayer = new Player("X");
+      var testSpace = new Space(1,1, testPlayer);
+      var testSpace2 = new Space(1,2, testPlayer);
+      var testSpace3 = new Space(1,3, testPlayer);
+      var testSpace4 = new Space(2,1, testPlayer);
+      var testSpace5 = new Space(2,2, testPlayer);
+      var testSpace6 = new Space(2,3, testPlayer);
+      var testSpace7 = new Space(3,1, testPlayer);
+      var testSpace8 = new Space(3,2, testPlayer);
+      var testSpace9 = new Space(3,3, testPlayer);
+      var testBoard = new Board();
+      testBoard.setSpace(testSpace);
+      testBoard.setSpace(testSpace2);
+      testBoard.setSpace(testSpace3);
+      testBoard.setSpace(testSpace4);
+      testBoard.setSpace(testSpace5);
+      testBoard.setSpace(testSpace6);
+      testBoard.setSpace(testSpace7);
+      testBoard.setSpace(testSpace8);
+      testBoard.setSpace(testSpace9);
+      expect(testBoard.checkIfFull()).to.equal(true);
+   }); 
+});
+
+describe('Game', function() {
+    it("returns player1", function() {
+      var testPlayer = new Player("X");
+      var testPlayer2 = new Player("O");
+      var testBoard = new Board();
+      var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
+      expect(testGame.player1).to.equal(testPlayer);
+   });
+   
+   it("returns player2", function() {
+      var testPlayer = new Player("X");
+      var testPlayer2 = new Player("O");
+      var testBoard = new Board();
+      var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
+      expect(testGame.player2).to.equal(testPlayer2);
+   });
+   
+   it("returns Game Board", function() {
+      var testPlayer = new Player("X");
+      var testPlayer2 = new Player("O");
+      var testBoard = new Board();
+      var testGame = new Game(testPlayer, testPlayer2, testBoard, 0);
+      expect(testGame.gameBoard).to.equal(testBoard);
+   });
 });

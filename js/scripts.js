@@ -26,6 +26,7 @@ function Board(spaces){
         }
     }
     this.spaces = spacesBoard;
+    console.log(this.spaces);
 };
 
 Board.prototype.find = function(x_coord, y_coord){
@@ -92,6 +93,7 @@ Board.prototype.setSpace = function(space){
 };
 
 Board.prototype.checkIfThreeInARow = function() {
+  // debugger;
     if(this.checkIfVerticalWin() || this.checkIfHorizontalWin() || this.checkIfDiagonalWin()){
         return true;
     } else {
@@ -100,12 +102,13 @@ Board.prototype.checkIfThreeInARow = function() {
 };
 
 Board.prototype.checkIfVerticalWin = function() {
+  // debugger;
     var times = 0;
     for(var x = 1; x <=3; x++){
         for(var j = 2; j <= 3; j++){
             var tempSpace = this.spaces[this.find(x, j)];
             var tempSpace2 = this.spaces[this.find(x, (j - 1) )];
-            if((tempSpace.marked_by == tempSpace2.marked_by) && (tempSpace.marked_by != "empty")) {
+            if((tempSpace.marked_by.mark == tempSpace2.marked_by.mark) && (tempSpace.marked_by != "empty")) {
                 times += 1;
             }
         }
@@ -119,12 +122,13 @@ Board.prototype.checkIfVerticalWin = function() {
 };
 
 Board.prototype.checkIfHorizontalWin = function() {
+  // debugger;
     var times = 0;
     for(var y = 1; y <=3; y++){
         for(var x = 2; x <= 3; x++){
             var tempSpace = this.spaces[this.find(x, y)];
             var tempSpace2 = this.spaces[this.find((x - 1), y)];
-            if((tempSpace.marked_by == tempSpace2.marked_by) && (tempSpace.marked_by != "empty")) {
+            if((tempSpace.marked_by.mark == tempSpace2.marked_by.mark) && (tempSpace.marked_by != "empty")) {
                 times += 1;
             }
         }
@@ -142,8 +146,8 @@ Board.prototype.checkIfDiagonalWin = function() {
     var rightBottomCorner = this.spaces[this.find(3, 1)];
     var leftBottomCorner = this.spaces[this.find(1, 1)];
     var rightTopCorner = this.spaces[this.find(3, 3)];
-    var leftRight = ((leftTopCorner.marked_by == middle.marked_by) && (rightBottomCorner.marked_by == middle.marked_by));
-    var rightLeft = ((leftBottomCorner.marked_by == middle.marked_by) && (rightTopCorner.marked_by == middle.marked_by));
+    var leftRight = ((leftTopCorner.marked_by == middle.marked_by) && (rightBottomCorner.marked_by == middle.marked_by) && (middle.marked_by != "empty"));
+    var rightLeft = ((leftBottomCorner.marked_by == middle.marked_by) && (rightTopCorner.marked_by == middle.marked_by) && (middle.marked_by != "empty"));
     
     if(leftRight || rightLeft) {
         return true;
@@ -153,7 +157,7 @@ Board.prototype.checkIfDiagonalWin = function() {
 };
 
 Board.prototype.checkIfFull = function(){
-    debugger;
+    // debugger;
     var isSpotFull = true;
     for(var x = 1; x <= 3; x++){
         for(var y = 1; y <= 3; y++){
@@ -165,3 +169,49 @@ Board.prototype.checkIfFull = function(){
     }  
     return isSpotFull;
 };
+
+function Game(player1, player2, gameBoard, playerTurn){
+    this.player1 = player1;
+    this.player2 = player2;
+    this.gameBoard = gameBoard;
+    this.playerTurn = playerTurn;
+};
+
+Game.prototype.computerPlay = function(){
+  debugger;
+  var num = Math.floor((Math.random() * 9) + 1) - 1;
+  var posSpace = this.gameBoard.spaces[num];
+  if(this.gameBoard.isEmpty(posSpace.x_coord, posSpace.y_coord)){
+    var tempSpace = new Space(posSpace.x_coord, posSpace.y_coord, this.player2);
+    this.gameBoard.setSpace(tempSpace);
+  } else {
+    num = this.computerPlay();
+  }
+  return num;
+};
+
+$(document).ready(function() {
+    var player1 = new Player("X");
+    var player2 = new Player("O");
+    var gameBoard = new Board();
+    var daGame = new Game(player1, player2, gameBoard, player1);
+    $("button").click(function() {
+      // debugger;
+      event.preventDefault();
+      $(this).prop("disabled", true);
+      $(this).text("X");
+      
+      var playerMove = parseInt($(this).attr('id'));
+      var tempSpace = new Space(daGame.gameBoard.spaces[playerMove].x_coord, daGame.gameBoard.spaces[playerMove].y_coord, player1);
+      daGame.gameBoard.setSpace(tempSpace);
+      if((daGame.gameBoard.checkIfThreeInARow())){
+        alert("You have Won!");
+      } else if(daGame.gameBoard.checkIfFull()) {
+        alert("Game Over no More Moves Left");
+      } else{
+          var play = daGame.computerPlay();
+          $("#" + play).prop("disabled", true);
+          $("#" + play).text("O");
+      }
+    });
+});
