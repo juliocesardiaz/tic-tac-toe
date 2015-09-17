@@ -204,7 +204,8 @@ $(document).ready(function() {
       // debugger;
       event.preventDefault();
       $(this).prop("disabled", true);
-      $(this).text("X");
+      $(this).text("")
+      $(this).prepend("<i class='fa fa-times'></i>");
       
       var playerMove = parseInt($(this).attr('id'));
       var tempSpace = new Space(daGame.gameBoard.spaces[playerMove].x_coord, daGame.gameBoard.spaces[playerMove].y_coord, player1);
@@ -216,7 +217,11 @@ $(document).ready(function() {
       } else{
           var play = daGame.computerPlay();
           $("#" + play).prop("disabled", true);
-          $("#" + play).text("O");
+          $("#" + play).text("");
+          $("#" + play).prepend("<i class='fa fa-circle-o'></i>");
+          if((daGame.gameBoard.checkIfThreeInARow())){
+            alert("You have LOST!");
+          }
       }
     });
 });
