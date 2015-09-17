@@ -112,6 +112,9 @@ Board.prototype.checkIfVerticalWin = function() {
                 times += 1;
             }
         }
+        if(times < 2){
+              times = 0;
+            }
     }
     if(times == 2){
         return true;
@@ -132,6 +135,9 @@ Board.prototype.checkIfHorizontalWin = function() {
                 times += 1;
             }
         }
+        if(times < 2){
+              times = 0;
+            }
     }
     if(times == 2){
         return true;
@@ -178,7 +184,6 @@ function Game(player1, player2, gameBoard, playerTurn){
 };
 
 Game.prototype.computerPlay = function(){
-  debugger;
   var num = Math.floor((Math.random() * 9) + 1) - 1;
   var posSpace = this.gameBoard.spaces[num];
   if(this.gameBoard.isEmpty(posSpace.x_coord, posSpace.y_coord)){
