@@ -200,7 +200,7 @@ $(document).ready(function() {
     var player2 = new Player("O");
     var gameBoard = new Board();
     var daGame = new Game(player1, player2, gameBoard, player1);
-    $("button").click(function() {
+    $("button.btn-danger").click(function() {
       // debugger;
       event.preventDefault();
       $(this).prop("disabled", true);
@@ -224,4 +224,18 @@ $(document).ready(function() {
           }
       }
     });
+//     $("button.btn-primary").click(function() {
+//       $("button").prop("disabled", false);
+//       $("button#0").text("-");
+//       $("button#1").text("-");
+//       $("button#2").text("-");
+//       $("button#3").text("-");
+//       $("button#4").text("-");
+//       $("button#5").text("-");
+//       $("button#6").text("-");
+//       $("button#7").text("-");
+//       $("button#8").text("-");
+//       var tempBoard = new Board();
+//       daGame.gameBoard =tempBoard;
+//     });
 });
